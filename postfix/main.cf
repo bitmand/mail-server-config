@@ -1,0 +1,55 @@
+#
+# Custom Postfix Config
+# add to bottom of main.cf file
+#
+
+myhostname = postfix.example.com
+mynetworks_style = host
+
+# allow tls for smtp
+smtpd_tls_security_level = may
+smtpd_tls_chain_files = /etc/postfix/postfix.example.com.pem
+
+# spam prevention using simple restrictions
+smtpd_helo_required = yes
+disable_vrfy_command = yes
+smtpd_recipient_restrictions  =
+    reject_invalid_hostname,
+    reject_non_fqdn_hostname,
+    reject_non_fqdn_sender,
+    reject_non_fqdn_recipient,
+    reject_unknown_sender_domain,
+    reject_unknown_recipient_domain,
+    permit_mynetworks,
+    reject_unauth_destination,
+    reject_rbl_client cbl.abuseat.org,
+    reject_rbl_client sbl.spamhaus.org,
+    reject_rbl_client pbl.spamhaus.org
+    permit
+
+# virtual mail domains
+virtual_mailbox_domains = hash:/etc/postfix/virtual_domains
+
+# virtual mailboxes (users)
+virtual_mailbox_maps = hash:/etc/postfix/virtual_mailbox
+virtual_minimum_uid = 1000
+
+# virtual mail aliases
+virtual_alias_maps = hash:/etc/postfix/virtual_aliases
+virtual_alias_domains = $virtual_alias_maps
+
+# filesystem root for virtual mailboxes
+virtual_mailbox_base = /home/mailbox
+
+# store all mail for all users with user id 1002 and group id 1002
+virtual_uid_maps = static:1002
+virtual_gid_maps = static:1002
+
+# for maildir: max size of a single mail file (100mb)
+# for mailbox: max size of a single mailbox file (100mb)
+virtual_mailbox_limit = 104857600
+
+# max size of single email (100mb)
+message_size_limit = 104857600
+mailbox_size_limit = 104857600
+

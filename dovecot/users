@@ -1,0 +1,7 @@
+# username (email) and passwords for imap and sasl
+# create password: doveadm pw -s CRYPT
+
+user1@mail-domain.com:{CRYPT}$2y$05$WTPhYhV5LxRe/DLXO3dKJei5vTmjWIUqZUzOgT06eEER48VOwolHe
+user2@mail-domain.com:{CRYPT}$2y$05$bLlpwPTsyrx4kkxIDGLJbu5mW9Mnep9DCb2xT4lTzevGrpTzTHYoO
+frog@jump.com:{CRYPT}$2y$05$SyrzeJk4yVnCshsQmLBPNeI97Stkwv6Ih3nbFZlLL7mWtqbtKC40u
+
